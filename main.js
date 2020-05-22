@@ -29,11 +29,13 @@ $(document).ready(function(){
 
                     // selezione i parametri che mi interessanto nel film corrente
                     var film_data = {
-                        'titolo' :
-                        'titolo_originale' :
-                        'lingua' :
-                        'voto' :
-                    }
+                        'titolo' : film_corrente.title,
+                        'titolo_originale' : film_corrente.original_title,
+                        'lingua' : film_corrente.original_language,
+                        'voto' : film_corrente.vote_average
+                    };
+
+                    console.log(film_data);
 
                 }
             },
