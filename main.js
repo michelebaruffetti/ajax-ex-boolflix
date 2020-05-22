@@ -34,8 +34,13 @@ $(document).ready(function(){
                         'lingua' : film_corrente.original_language,
                         'voto' : film_corrente.vote_average
                     };
+                    // console.log(film_data);
 
-                    console.log(film_data);
+                    // compilazione html
+                    var html_compilato = template_function(film_data);
+
+                    // append html compilato
+                    $('.main-container').append(html_compilato);
 
                 }
             },
