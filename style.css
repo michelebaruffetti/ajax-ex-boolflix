@@ -20,12 +20,26 @@ header  {
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
 }
 
 .header-container img   {
     height: 100%;
     object-fit: contain;
+}
+
+input   {
+    height: 25px;
+    padding: 5px;
+    font-size: 12px;
+}
+
+#cerca  {
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 main    {
