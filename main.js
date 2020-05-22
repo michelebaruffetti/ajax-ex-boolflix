@@ -14,19 +14,22 @@ $(document).ready(function(){
                 'query' : film_da_cercare,
                 'language' : 'it'
             },
-            'success' : function(risposta){
+            'success' : function(data){
                 // creo variabile col risultato della query-ricerca
-                var risulato_ricera = risposta.response;
+                var risulato_ricerca = data.results;
+                console.log(risulato_ricerca);
 
                 // ciclo il risultato per scorrere ogni oggetto dell'array
-                for (var i = 0; i < risulato_ricera.length; i++) {
+                for (var i = 0; i < risulato_ricerca.length; i++) {
                     // variabile del film-oggetto corrente
-                    var film_corrente = risulato_ricera[i];
-
+                    var film_corrente = risulato_ricerca[i];
+                    console.log(film_corrente);
                     // selezione i parametri che mi interessanto nel film corrente
                 }
             },
-            'error' : function() {}
+            'error' : function() {
+                alert('problema nella ricezione dati')
+            }
 
 
 
