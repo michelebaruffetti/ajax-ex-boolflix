@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    var template_html = $('#template').html();
+    var template_function = Handlebars.compile(template_html);
 
     $('#cerca').click(function(){
         var film_da_cercare = $('#testo-cerca').val();
@@ -23,8 +25,16 @@ $(document).ready(function(){
                 for (var i = 0; i < risulato_ricerca.length; i++) {
                     // variabile del film-oggetto corrente
                     var film_corrente = risulato_ricerca[i];
-                    console.log(film_corrente);
+                    // console.log(film_corrente);
+
                     // selezione i parametri che mi interessanto nel film corrente
+                    var film_data = {
+                        'titolo' :
+                        'titolo_originale' :
+                        'lingua' :
+                        'voto' :
+                    }
+
                 }
             },
             'error' : function() {
