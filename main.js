@@ -4,6 +4,7 @@ $(document).ready(function(){
     var template_function = Handlebars.compile(template_html);
 
     $('#cerca').click(function(){
+        $('.main-container').empty();
         var film_da_cercare = $('#testo-cerca').val();
         console.log(film_da_cercare);
 
