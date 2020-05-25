@@ -54,7 +54,7 @@ $(document).ready(function(){
                                 'titolo' : film_corrente.title,
                                 'titolo_originale' : film_corrente.original_title,
                                 'lingua' : film_corrente.original_language,
-                                'voto' : film_corrente.vote_average
+                                'voto' : voto_in_stelle(film_corrente.vote_average)
                             };
                             // console.log(film_data);
 
@@ -77,6 +77,24 @@ $(document).ready(function(){
             }
 
 
+    };
+
+    function voto_in_stelle(valutazione) {
+        var voto = Math.ceil(valutazione / 2);
+        console.log(voto);
+        var stelle = '';
+
+        for (var i = 0; i < 5; i++) {
+            if (voto > 0) {
+                stelle += '<i class="fas fa-star"></i>';
+                voto --;
+            }
+            else {
+                stelle += '<i class="far fa-star"></i>';
+            };
+
+        }
+        return stelle;
     };
 
 });
