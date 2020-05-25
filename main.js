@@ -81,9 +81,9 @@ $(document).ready(function(){
 
     function voto_in_stelle(valutazione) {
         var voto = Math.ceil(valutazione / 2);
-        console.log(voto);
+        // console.log(voto);
         var stelle = '';
-
+        // faccio un ciclo dove finché la variabile voto è maggiore di zero metto le stelle piene, poi le vuolte
         for (var i = 0; i < 5; i++) {
             if (voto > 0) {
                 stelle += '<i class="fas fa-star"></i>';
