@@ -3,34 +3,32 @@ $(document).ready(function(){
     var template_html = $('#template').html();
     var template_function = Handlebars.compile(template_html);
 
-
+// PREMENDO INVIO PARTE CHIAMATA AJAX
     $('#testo-cerca').keyup(function(event){
         if (event.which == 13){
-            ricerca();
+            chiamata_ajax();
         }
 
     });
 
-
+// AL CLICK SUL BOTTONE CERCA AVVIA CHIAMATA AJAX
     $('#cerca').click(function(){
-
-        ricerca();
+            chiamata_ajax();
     });
 
 
-    function ricerca() {
+
+
+// QUESTA FUNZIONE INVOCA LA CHIAMATA AJAX
+    function chiamata_ajax() {
         var film_da_cercare = $('#testo-cerca').val().trim();
         console.log(film_da_cercare);
-
         // svuotare container
         $('.main-container').empty();
         // riazzerare l'input
         $('#testo-cerca').val('');
-
             if (film_da_cercare.length > 1) {
-
                 $.ajax({
-
                     'url': 'https://api.themoviedb.org/3/search/movie',
                     'method': 'GET',
                     'data' : {
@@ -39,9 +37,7 @@ $(document).ready(function(){
                         'language' : 'it'
                     },
                     'success' : function(data){
-
                         ricerca_dati(data.results);
-
 
                     },
                     'error' : function() {
@@ -53,8 +49,6 @@ $(document).ready(function(){
             else {
                 alert('Digita più di due lettere!');
             }
-
-
     };
 
 // QUESTA FUNZIONE TRASFORMA IL VOTO IN STELLE
@@ -75,9 +69,6 @@ $(document).ready(function(){
         }
         return stelle;
     };
-
-
-
 
 
 // QUESTA FUNZIONE RICERCA I DATI NELL'AJAX SUCCESS
