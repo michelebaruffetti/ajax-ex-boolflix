@@ -17,7 +17,7 @@ $(document).ready(function(){
     });
 
 
-
+// -------- FUNZIONI -------
 
 // QUESTA FUNZIONE INVOCA LA CHIAMATA AJAX
     function chiamata_ajax() {
@@ -27,58 +27,77 @@ $(document).ready(function(){
         $('.main-container').empty();
         // riazzerare l'input
         $('#testo-cerca').val('');
-            if (film_da_cercare.length > 1) {
-                $.ajax({
-                    'url': 'https://api.themoviedb.org/3/search/movie',
-                    'method': 'GET',
-                    'data' : {
-                        'api_key' : '19721551d07f17afa14c0f3fcca30e9d',
-                        'query' : film_da_cercare,
-                        'language' : 'it'
-                    },
-                    'success' : function(data){
-                        ricerca_dati(data.results);
+        // assegno a due variabili gli url film e serietv da usare nelle funzioni ajax
+        var url_movie = 'https://api.themoviedb.org/3/search/movie';
+        var url_series = 'https://api.themoviedb.org/3/search/tv';
+        // richiamo le funzioni ajax con gli url e il film da cercare
+            url_ajax(film_da_cercare, url_movie);
+            url_ajax(film_da_cercare,url_series);
 
-                    },
-                    'error' : function() {
-                        alert('problema nella ricezione dati')
-                    }
-
-                });
-            }
-            else {
-                alert('Digita più di due lettere!');
-            }
     };
 
-// QUESTA FUNZIONE RICERCA I DATI NELL'AJAX SUCCESS
-        function ricerca_dati(data){
+
+// CREO UNA FUNZIONE CHE EVOCA AJAX CON DUE VARIABILI: IL DATO INSERITO DALL'UTENTE E L'URL DOVE FARE GET
+    function url_ajax(dato_utente, url){
+        if (dato_utente.length > 1) {
+            $.ajax({
+                'url': url,
+                'method': 'GET',
+                'data' : {
+                    'api_key' : '19721551d07f17afa14c0f3fcca30e9d',
+                    'query' : dato_utente,
+                    'language' : 'it'
+                },
+                'success' : function(data){
+                    ricerca_dati(data.results);
+
+                },
+                'error' : function() {
+                    alert('problema nella ricezione dati')
+                }
+
+            });
+        }
+        else {
+            alert('Digita più di due lettere!');
+        }
+    };
+
+// QUESTA FUNZIONE RICERCA I DATI NELL'AJAX SUCCESS (include la modifica per nome e nome originale della serie tv)
+    function ricerca_dati(data){
             // creo variabile col risultato della query-ricerca
             var risulato_ricerca = data;
             console.log(risulato_ricerca);
 
-            // ciclo il risultato per scorrere ogni oggetto dell'array
-            for (var i = 0; i < risulato_ricerca.length; i++) {
-                // variabile del film-oggetto corrente
-                var film_corrente = risulato_ricerca[i];
-                // console.log(film_corrente);
+            if (risulato_ricerca != '') {
+                // ciclo il risultato per scorrere ogni oggetto dell'array
+                for (var i = 0; i < risulato_ricerca.length; i++) {
+                    // variabile del film-oggetto corrente
+                    var film_corrente = risulato_ricerca[i];
+                    // console.log(film_corrente);
 
-                // selezione i parametri che mi interessanto nel film corrente
-                var film_data = {
-                    'titolo' : film_corrente.title,
-                    'titolo_originale' : film_corrente.original_title,
-                    'lingua' : svela_bandiere(film_corrente.original_language),
-                    'voto' : voto_in_stelle(film_corrente.vote_average)
+                    // selezione i parametri che mi interessanto nel film corrente
+                        var film_data = {
+                            'titolo' : film_corrente.title || film_corrente.name,
+                            'titolo_originale' : film_corrente.original_title || film_corrente.original_name,
+                            'lingua' : svela_bandiere(film_corrente.original_language),
+                            'voto' : voto_in_stelle(film_corrente.vote_average)
+                        };
+                    // console.log(film_data);
+
+                    // compilazione html
+                    var html_compilato = template_function(film_data);
+
+                    // append html compilato
+                    $('.main-container').append(html_compilato);
                 };
-                // console.log(film_data);
+            }
+            else {
+                $('.main-container').empty();
+                $('.main-container').append('<h1 class="no-match">Nessun risultato</h1>');
+            }
 
-                // compilazione html
-                var html_compilato = template_function(film_data);
-
-                // append html compilato
-                $('.main-container').append(html_compilato);
-            };
-        };
+    };
 
 // QUESTA FUNZIONE TRASFORMA IL VOTO IN STELLE
     function voto_in_stelle(valutazione) {

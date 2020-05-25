@@ -65,3 +65,10 @@ main    {
     background-color: grey;
     margin: 5px;
 }
+
+.no-match   {
+    align-self: center;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
