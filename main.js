@@ -51,6 +51,35 @@ $(document).ready(function(){
             }
     };
 
+// QUESTA FUNZIONE RICERCA I DATI NELL'AJAX SUCCESS
+        function ricerca_dati(data){
+            // creo variabile col risultato della query-ricerca
+            var risulato_ricerca = data;
+            console.log(risulato_ricerca);
+
+            // ciclo il risultato per scorrere ogni oggetto dell'array
+            for (var i = 0; i < risulato_ricerca.length; i++) {
+                // variabile del film-oggetto corrente
+                var film_corrente = risulato_ricerca[i];
+                // console.log(film_corrente);
+
+                // selezione i parametri che mi interessanto nel film corrente
+                var film_data = {
+                    'titolo' : film_corrente.title,
+                    'titolo_originale' : film_corrente.original_title,
+                    'lingua' : svela_bandiere(film_corrente.original_language),
+                    'voto' : voto_in_stelle(film_corrente.vote_average)
+                };
+                // console.log(film_data);
+
+                // compilazione html
+                var html_compilato = template_function(film_data);
+
+                // append html compilato
+                $('.main-container').append(html_compilato);
+            };
+        };
+
 // QUESTA FUNZIONE TRASFORMA IL VOTO IN STELLE
     function voto_in_stelle(valutazione) {
         var voto = Math.ceil(valutazione / 2);
@@ -70,34 +99,15 @@ $(document).ready(function(){
         return stelle;
     };
 
-
-// QUESTA FUNZIONE RICERCA I DATI NELL'AJAX SUCCESS
-    function ricerca_dati(data){
-        // creo variabile col risultato della query-ricerca
-        var risulato_ricerca = data;
-        console.log(risulato_ricerca);
-
-        // ciclo il risultato per scorrere ogni oggetto dell'array
-        for (var i = 0; i < risulato_ricerca.length; i++) {
-            // variabile del film-oggetto corrente
-            var film_corrente = risulato_ricerca[i];
-            // console.log(film_corrente);
-
-            // selezione i parametri che mi interessanto nel film corrente
-            var film_data = {
-                'titolo' : film_corrente.title,
-                'titolo_originale' : film_corrente.original_title,
-                'lingua' : film_corrente.original_language,
-                'voto' : voto_in_stelle(film_corrente.vote_average)
-            };
-            // console.log(film_data);
-
-            // compilazione html
-            var html_compilato = template_function(film_data);
-
-            // append html compilato
-            $('.main-container').append(html_compilato);
-        };
+// QUESTA FUNZIONE TRASFORMA I LA LINGUA IT FR E EN IN BANDIERINE CORRISPONDENTI AI PAESI IN QUESTIONE
+    function svela_bandiere(lingua){
+        bandiere = ['en', 'it', 'fr']
+        if (bandiere.includes(lingua)) {
+            return '<img src="img/flag_'+lingua+'.png">';
+        }
+        else {
+            return lingua;
+        }
     };
 
 });
