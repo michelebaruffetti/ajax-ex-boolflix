@@ -84,6 +84,7 @@ $(document).ready(function(){
                             'immagine': poster_url + film_corrente.poster_path,
                             'titolo' : film_corrente.title || film_corrente.name,
                             'titolo_originale' : film_corrente.original_title || film_corrente.original_name,
+                            'trama' : trama(film_corrente.overview),
                             'lingua' : svela_bandiere(film_corrente.original_language),
                             'voto' : voto_in_stelle(film_corrente.vote_average),
                             'tipo' : tipo
@@ -98,6 +99,16 @@ $(document).ready(function(){
                 };
 
 
+    };
+
+// FUNZIONE PER INSERIRE LA TRAMA O MENO IN CASO NON SI PRESENTE NEL DATABASE
+    function trama(overview){
+        if (overview == '') {
+            return overview = ' - trama non disponibile - ';
+        }
+        else {
+            return overview;
+        }
     };
 
 // QUESTA FUNZIONE TRASFORMA IL VOTO IN STELLE
