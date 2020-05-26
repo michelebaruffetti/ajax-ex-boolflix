@@ -58,16 +58,28 @@ main    {
 }
 
 .film   {
-    width: 180px;
-    height: 230px;
+    width: 342px;
+    height: 513px;
     padding: 10px;
-    background-color: grey;
+    background-color: black;
     margin: 5px;
+    position: relative;
+    color: white;
+    border: 1px solid white;
 }
 
-.no-match   {
-    align-self: center;
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 4px;
+.film:hover .locandina  {
+    opacity: 0%;
+    transition: 0.5s ease-in-out;
+}
+
+.locandina  {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+
 }

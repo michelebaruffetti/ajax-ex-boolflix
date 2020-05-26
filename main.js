@@ -31,7 +31,7 @@ $(document).ready(function(){
         var url_movie = 'https://api.themoviedb.org/3/search/movie';
         var url_series = 'https://api.themoviedb.org/3/search/tv';
         var api_key = '19721551d07f17afa14c0f3fcca30e9d';
-        var poster_url = 'https://image.tmdb.org/t/p/w185';
+        var poster_url = 'https://image.tmdb.org/t/p/w342';
         var film = 'film';
         var serie_tv = 'serie tv'
         // richiamo le funzioni ajax con gli url e il film da cercare
@@ -67,7 +67,7 @@ $(document).ready(function(){
         }
     };
 
-// QUESTA FUNZIONE RICERCA I DATI NELL'AJAX SUCCESS (include la modifica per nome e nome originale della serie tv)
+// QUESTA FUNZIONE RICERCA I DATI NELL'AJAX SUCCESS
     function ricerca_dati(data, tipo, poster_url){
             // creo variabile col risultato della query-ricerca
             var risulato_ricerca = data;
