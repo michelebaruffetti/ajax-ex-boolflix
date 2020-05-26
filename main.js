@@ -30,15 +30,17 @@ $(document).ready(function(){
         // assegno a due variabili gli url film e serietv da usare nelle funzioni ajax
         var url_movie = 'https://api.themoviedb.org/3/search/movie';
         var url_series = 'https://api.themoviedb.org/3/search/tv';
+        var film = 'film';
+        var serie_tv = 'serie tv'
         // richiamo le funzioni ajax con gli url e il film da cercare
-            url_ajax(film_da_cercare, url_movie);
-            url_ajax(film_da_cercare,url_series);
+            url_ajax(film_da_cercare, url_movie, film);
+            url_ajax(film_da_cercare,url_series, serie_tv);
 
     };
 
 
 // CREO UNA FUNZIONE CHE EVOCA AJAX CON DUE VARIABILI: IL DATO INSERITO DALL'UTENTE E L'URL DOVE FARE GET
-    function url_ajax(dato_utente, url){
+    function url_ajax(dato_utente, url, tipo){
         if (dato_utente.length > 1) {
             $.ajax({
                 'url': url,
@@ -49,7 +51,7 @@ $(document).ready(function(){
                     'language' : 'it'
                 },
                 'success' : function(data){
-                    ricerca_dati(data.results);
+                    ricerca_dati(data.results, tipo);
 
                 },
                 'error' : function() {
@@ -64,12 +66,12 @@ $(document).ready(function(){
     };
 
 // QUESTA FUNZIONE RICERCA I DATI NELL'AJAX SUCCESS (include la modifica per nome e nome originale della serie tv)
-    function ricerca_dati(data){
+    function ricerca_dati(data, tipo){
             // creo variabile col risultato della query-ricerca
             var risulato_ricerca = data;
             console.log(risulato_ricerca);
 
-            if (risulato_ricerca != '') {
+            // if (risulato_ricerca != '') {
                 // ciclo il risultato per scorrere ogni oggetto dell'array
                 for (var i = 0; i < risulato_ricerca.length; i++) {
                     // variabile del film-oggetto corrente
@@ -81,7 +83,8 @@ $(document).ready(function(){
                             'titolo' : film_corrente.title || film_corrente.name,
                             'titolo_originale' : film_corrente.original_title || film_corrente.original_name,
                             'lingua' : svela_bandiere(film_corrente.original_language),
-                            'voto' : voto_in_stelle(film_corrente.vote_average)
+                            'voto' : voto_in_stelle(film_corrente.vote_average),
+                            'tipo' : tipo
                         };
                     // console.log(film_data);
 
@@ -91,11 +94,11 @@ $(document).ready(function(){
                     // append html compilato
                     $('.main-container').append(html_compilato);
                 };
-            }
-            else {
-                $('.main-container').empty();
-                $('.main-container').append('<h1 class="no-match">Nessun risultato</h1>');
-            }
+            // }
+            // else {
+            //     $('.main-container').empty();
+            //     $('.main-container').append('<h1 class="no-match">Nessun risultato</h1>');
+            // }
 
     };
 
