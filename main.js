@@ -112,9 +112,14 @@ $(document).ready(function(){
 // FUNZIONE PER INSERIRE LA TRAMA O MENO IN CASO NON SI PRESENTE NEL DATABASE
     function trama(overview){
         if (overview == '') {
-            return overview = ' - trama non disponibile - ';
+            return overview = ' *** trama non disponibile ***';
         }
-        else {
+        else if (overview.length > 750) {
+            var sub_overview = overview.substring(0,750)+'...';
+            return sub_overview;
+        }
+        else{
+
             return overview;
         }
     };

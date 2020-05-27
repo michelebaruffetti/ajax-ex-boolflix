@@ -23,6 +23,7 @@ header  {
 
 }
 
+
 .header-container img   {
     height: 100%;
     object-fit: contain;
@@ -84,10 +85,11 @@ main    {
 
 }
 
-.film p, h3, h4     {
-    margin: 5px;
+
+.film p:nth-child(6)    {
+    margin-bottom: 20px;
 }
 
 .opacity    {
-    opacity : 50%; 
+    opacity : 50%;
 }
