@@ -83,3 +83,7 @@ main    {
     object-fit: cover;
 
 }
+
+.film p, h3, h4     {
+    margin: 5px;
+}
