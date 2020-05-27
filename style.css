@@ -87,3 +87,7 @@ main    {
 .film p, h3, h4     {
     margin: 5px;
 }
+
+.opacity    {
+    opacity : 50%; 
+}

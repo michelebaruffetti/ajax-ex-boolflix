@@ -81,13 +81,21 @@ $(document).ready(function(){
 
                     // selezione i parametri che mi interessanto nel film corrente
                         var film_data = {
-                            'immagine': poster_url + film_corrente.poster_path,
+                            'immagine': locandina(film_corrente.poster_path, poster_url),
                             'titolo' : film_corrente.title || film_corrente.name,
                             'titolo_originale' : film_corrente.original_title || film_corrente.original_name,
                             'trama' : trama(film_corrente.overview),
                             'lingua' : svela_bandiere(film_corrente.original_language),
                             'voto' : voto_in_stelle(film_corrente.vote_average),
-                            'tipo' : tipo
+                            'tipo' : tipo,
+                            'opacita' : function(){
+                                        if (film_corrente.poster_path != null) {
+                                            return '';
+                                        }
+                                        else {
+                                            return 'opacity';
+                                        }
+                                        }
                         };
                     // console.log(film_data);
 
@@ -139,6 +147,22 @@ $(document).ready(function(){
         else {
             return lingua;
         }
+    };
+
+// FUNZIONE PER ASSENZA DI locandina
+
+    function locandina (url, poster_url){
+        var check_locandina
+        if (url != null) {
+            check_locandina = poster_url+url;
+        }
+        else {
+            check_locandina = 'img/no-img.png';
+
+        }
+        return check_locandina;
+
+
     };
 
 });
